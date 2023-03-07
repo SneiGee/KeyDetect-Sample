@@ -1,4 +1,4 @@
-namespace KeyDetect.Contracts.Authentication;
+namespace Contracts.Authentication;
 
 public record RegisterRequest(
     string FirstName,

@@ -19,7 +19,7 @@ namespace Infrastructure.Authentication
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public string CreateToken(AppUser user)
+        public string GenerateToken(AppUser user)
         {
             var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(

@@ -1,4 +1,5 @@
 using Api.Common.Errors;
+using Api.Common.Mapping;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Api;
@@ -9,6 +10,7 @@ public static class DependencyInjection
     {
         services.AddControllers();
         services.AddSingleton<ProblemDetailsFactory, KeyDetectProblemDetailsFactory>();
+        services.AddMappings();
         return services;
     }
 }
