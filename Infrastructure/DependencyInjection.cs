@@ -2,10 +2,14 @@ using System.Text;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Persistence;
 using Application.Common.Interfaces.Services;
+using Domain.Identity;
 using Infrastructure.Authentication;
+using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,8 +23,8 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services
-            .AddAuth(configuration)
-            .AddPersistence(configuration);
+            .AddPersistence(configuration)
+            .AddAuth(configuration);
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
@@ -30,6 +34,9 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services,
         ConfigurationManager configuration)
     {
+        services.AddDbContext<KeyDetectDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("KeyDetectConnection")));
+
         services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
@@ -38,6 +45,15 @@ public static class DependencyInjection
     public static IServiceCollection AddAuth(this IServiceCollection services,
         ConfigurationManager configuration)
     {
+        var builder = services.AddIdentityCore<AppUser>(opt => {
+            opt.Password.RequireNonAlphanumeric = true;
+            opt.Password.RequireDigit = false;
+            opt.Password.RequireUppercase = false;
+        });
+
+        builder.AddEntityFrameworkStores<KeyDetectDbContext>();
+        builder.AddSignInManager<SignInManager<AppUser>>();
+
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);
 
