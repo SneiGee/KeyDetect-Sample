@@ -20,7 +20,7 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> CheckEmailExists(string email)
     {
-        return await _userManager.Users.AnyAsync(x => x.Email == email);
+        return await _userManager.FindByEmailAsync(email) is not null;
     }
 
     public void Delete(AppUser user)
@@ -28,7 +28,7 @@ public class UserRepository : IUserRepository
         _keyDetectDbContext.Remove(user);
     }
 
-    public async Task<AppUser?> GetUserByEmail(string email)
+    public async Task<AppUser> GetUserByEmail(string email)
     {
         var getUserByEmail = await _keyDetectDbContext.Users
             .SingleOrDefaultAsync(u => u.Email == email);

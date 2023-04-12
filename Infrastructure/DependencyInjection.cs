@@ -5,6 +5,7 @@ using Application.Common.Interfaces.Services;
 using Domain.Identity;
 using Infrastructure.Authentication;
 using Infrastructure.Persistence;
+using Infrastructure.Persistence.Configurations.EmailConfiguration;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,9 +36,10 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.AddDbContext<KeyDetectDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("KeyDetectConnection")));
+            options.UseSqlite(configuration.GetConnectionString("KeyDetectConnection")));
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
         return services;
     }
@@ -45,14 +47,14 @@ public static class DependencyInjection
     public static IServiceCollection AddAuth(this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        var builder = services.AddIdentityCore<AppUser>(opt => {
-            opt.Password.RequireNonAlphanumeric = true;
+        services.AddIdentityCore<AppUser>(opt => {
+            opt.Password.RequireNonAlphanumeric = false; // For special character
             opt.Password.RequireDigit = false;
+            opt.Password.RequireLowercase = true;
             opt.Password.RequireUppercase = false;
-        });
-
-        builder.AddEntityFrameworkStores<KeyDetectDbContext>();
-        builder.AddSignInManager<SignInManager<AppUser>>();
+        })
+            .AddSignInManager<SignInManager<AppUser>>()
+            .AddEntityFrameworkStores<KeyDetectDbContext>().AddDefaultTokenProviders();
 
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);

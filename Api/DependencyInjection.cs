@@ -1,6 +1,8 @@
 using Api.Common.Errors;
 using Api.Common.Mapping;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace Api;
 

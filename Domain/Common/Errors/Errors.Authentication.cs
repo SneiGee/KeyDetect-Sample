@@ -8,6 +8,6 @@ public static partial class Errors
     {
         public static Error InvalidCredentials => Error.Validation(
             code: "User.InvalidCred",
-            description: "Invalid credentials.");
+            description: "Invalid credentials, Try again!");
     }
 }

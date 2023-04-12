@@ -1,3 +1,4 @@
+using Application.Authentication.Commands.ConfirmEmail;
 using Application.Authentication.Commands.Register;
 using Application.Authentication.Common;
 using Application.Authentication.Queries.Login;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
-[Route("auth")]
+[Route("authentication")]
 [AllowAnonymous]
 public class AuthenticationController : ApiController
 {
@@ -50,6 +51,18 @@ public class AuthenticationController : ApiController
 
         return authResult.Match(
             authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            errors => Problem(errors));
+    }
+
+    [HttpPost("confirm-email")]
+    public async Task<IActionResult> ConfirmEmail(ConfirmEmailRequest confirmEmailRequest)
+    {
+        var confirmEmail = _mapper.Map<ConfirmEmailCommand>(confirmEmailRequest);
+
+        var confirmResult = await _mediator.Send(confirmEmail);
+
+        return confirmResult.Match(
+            confirmResult => Ok(confirmResult),
             errors => Problem(errors));
     }
 }

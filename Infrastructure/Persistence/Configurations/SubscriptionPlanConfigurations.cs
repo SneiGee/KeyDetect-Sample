@@ -24,10 +24,8 @@ public class SubscriptionPlanConfigurations : IEntityTypeConfiguration<Subscript
             .IsRequired();
 
         builder.Property(sp => sp.Price)
-            .HasColumnType("decimal(18,2)")
-            .IsRequired();
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(sp => sp.DurationInDays)
-            .IsRequired();
+        builder.Property(sp => sp.DurationInDays);
     }
 }

@@ -1,0 +1,17 @@
+@model dynamic
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Confirm Your Email</title>
+</head>
+<body>
+    <h2>Hi @Model.Username,</h2>
+    <p>Thanks for signing up with our application! To confirm your email, please click on the link below:</p>
+    <p><a href="@Model.ConfirmationLink">Confirm Email</a></p>
+    <hr>
+    <p>You can copy this link and paste it in your browser  @Model.ConfirmationLink</p>
+    <p>If you didn't sign up with our application, you can safely ignore this email.</p>
+</body>
+</html>

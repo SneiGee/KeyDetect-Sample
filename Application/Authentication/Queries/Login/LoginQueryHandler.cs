@@ -29,35 +29,24 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        // await Task.CompletedTask;
-
-        // var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == query.Email);
+        var user = await _userManager.FindByEmailAsync(query.Email);
 
         // 1. Validate the user exists
-        if (await _userRepository.GetUserByEmail(query.Email) is not AppUser user)
+        if (user is null)
         {
             return Errors.Authentication.InvalidCredentials;
         }
 
-        // 2. Validate the password is correct
-        // if (user.Password != query.Password)
-        // {
-        //     return new[] { Errors.Authentication.InvalidCredentials };
-        // }
-
         var result = await _signInManager.CheckPasswordSignInAsync(user, query.Password, false);
 
-        // 2. Validate the password is correct
-        if (result == Microsoft.AspNetCore.Identity.SignInResult.Failed)
+        // 2. Validate / show error if the login/password is not correct
+        if (!result.Succeeded)
         {
             return new[] { Errors.Authentication.InvalidCredentials };
         }
 
-        // Create Jwt token
-        var token = _jwtTokenGenerator.GenerateToken(user);
-
         return new AuthenticationResult(
             user,
-            token);
+            _jwtTokenGenerator.GenerateToken(user)); // Create Jwt token
     }
 }
