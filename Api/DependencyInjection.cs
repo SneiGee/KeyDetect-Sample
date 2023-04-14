@@ -11,6 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
         services.AddControllers();
+        services.AddCors();
         services.AddSingleton<ProblemDetailsFactory, KeyDetectProblemDetailsFactory>();
         services.AddMappings();
         return services;

@@ -15,6 +15,12 @@ var app = builder.Build();
 {
     app.UseExceptionHandler("/error");
 
+    app.UseCors(builder => builder
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .WithOrigins("https://localhost:4200"));
+
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
