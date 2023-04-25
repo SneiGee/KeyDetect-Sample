@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
-[Route("{controller}")]
+[Route("api/{controller}")]
 [AllowAnonymous]
 public class SubscriptionsController : ApiController
 {

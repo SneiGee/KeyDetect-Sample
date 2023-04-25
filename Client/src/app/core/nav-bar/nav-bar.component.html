@@ -1,0 +1,68 @@
+<header class="header" id="header">
+  <nav class="nav containers">
+    <a routerLink="/" class="nav_logo">KeyDetect</a>
+
+    <div class="nav_menu" id="nav-menu">
+      <ul class="nav_list">
+        <li class="nav_item">
+          <a routerLink="/home" class="nav_link">
+            <i class="fa fa-home nav_icon"></i>
+            <span class="nav_name">Home</span>
+          </a>
+        </li>
+        <li class="nav_item">
+          <a href="" class="nav_link">
+            <i class="fa fa-user nav_icon"></i>
+            <span class="nav_name">User</span>
+          </a>
+        </li>
+        <li class="nav_item">
+          <a href="" class="nav_link">
+            <i class="fa fa-cog nav_icon"></i>
+            <span class="nav_name">Setting</span>
+          </a>
+        </li>
+        <li class="nav_item">
+          <a href="" class="nav_link">
+            <i class="fa fa-cog nav_icon"></i>
+            <span class="nav_name">Setting</span>
+          </a>
+        </li>
+        <li class="nav_item">
+          <a href="" class="nav_link">
+            <i class="fa fa-cog nav_icon"></i>
+            <span class="nav_name">Info</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <!--  End Nav_Menu1 -->
+
+    <div class="nav_menu2" id="nav-menu">
+      <ul class="nav_list2">
+        <ng-container *ngIf="accountService.currentUser$ | async as user">
+          <li class="nav_item">
+            <a href="" class="nav_link">
+              <span class="nav_name">Account</span>
+            </a>
+          </li>
+          <li class="nav_item">
+            <a (click)="accountService.logout()" class="nav_link">
+              <span class="nav_name">Logout</span>
+            </a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+          <li class="nav_item">
+            <a routerLink="/account/login" class="nav_link">
+              <!-- <i class="fa fa-users nav_icon"></i> -->
+              <span class="nav_name">Login</span>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </nav>
+</header>

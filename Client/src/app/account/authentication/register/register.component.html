@@ -1,0 +1,109 @@
+<!-- Section: Design Block -->
+<section class="section">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start login">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6">
+          <h1 class="my-4 display-3 fw-bold ls-tight">
+            The best offer <br />
+            <span class="text-primary">for your business</span>
+          </h1>
+          <p class="login-p">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+
+        <div class="login-card-box col-lg-6 mt-5 mb-5 mb-lg-0">
+          <div class="card mt-2">
+            <div class="card-body py-3 px-md-5">
+              <h2 class="login-text">Create your KeyDetect account!</h2>
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <app-text-input [formControl]="registerForm.controls['firstName']" [label]="'First Name'"></app-text-input>
+                  </div>
+                  <div class="col-md-6">
+                    <app-text-input [formControl]="registerForm.controls['lastName']" [label]="'Last Name'"></app-text-input>
+                  </div>
+                </div>
+
+                <!-- 2 column grid layout with text inputs for the Email and Occupation -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <app-text-input [formControl]="registerForm.controls['email']" [label]="'Email Address'"></app-text-input>
+                  </div>
+                  <div class="col-md-6 ">
+                    <app-text-input [formControl]="registerForm.controls['occupation']" [label]="'Occupation (eg Keyboardist)'"></app-text-input>
+                  </div>
+                </div>
+
+                <!-- Password input -->
+                <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
+
+                <!-- Submit button -->
+                <div class="d-grid">
+                  <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary btn-block mb-2">
+                    Sign Up
+                  </button>
+                </div>
+
+                <div class="text-center mb-4">
+                  <span class="createLogin">Already a member? <a routerLink="/account/login">Back to Login</a></span>
+                </div>
+
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>or sign up with:</p>
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-facebook-f"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-github"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- End card -->
+
+          <div class="cred-footer text-center">
+            <div class="mt-3 d-flex">
+              <div class="mx-1">
+                <span>&copy; {{ getDate }} KeyDetect.</span>
+              </div>
+              <div class="mx-1">
+                <a href="">About</a>
+              </div>
+              <div class="mx-1">
+                <a href="">Blog</a>
+              </div>
+              <div class="mx-1">
+                <a href="">Help</a>
+              </div>
+              <div class="mx-1">
+                <a href="">Terms & Conditions</a>
+              </div>
+            </div>
+          </div>
+          <!-- end footer -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

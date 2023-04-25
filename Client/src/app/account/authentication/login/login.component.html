@@ -1,0 +1,83 @@
+<!-- Section: Design Block -->
+<section class="section">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start login">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6">
+          <h1 class="my-4 display-3 fw-bold ls-tight">
+            The best offer <br />
+            <span class="text-primary">for your business</span>
+          </h1>
+          <p class="login-p">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+
+        <div class="login-card-box col-lg-6 mt-5 mb-5 mb-lg-0">
+          <div class="card mt-2">
+            <div class="card-body py-3 px-md-5">
+              <h2 class="login-text">Login to your KeyDetect account!</h2>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <!-- Email input -->
+                <app-text-input [formControl]="loginForm.controls['email']" [label]="'Email Address'"></app-text-input>
+
+                <!-- Password input -->
+                <app-text-input [formControl]="loginForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
+
+                <div class="text-center mb-2">
+                  <a href="" class="forgotPassword">Forgot Password?</a>
+                </div>
+
+                <ul class="text-danger list-unstyled" *ngIf="validationErrors">
+                  <li *ngFor="let error of validationErrors">
+                    {{error}}
+                  </li>
+                </ul>
+
+                <!-- Submit button -->
+                <div class="d-grid">
+                  <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block mb-2">
+                    Login
+                  </button>
+                </div>
+
+                <div class="text-center mb-4">
+                  <span class="createLogin">Don't have an account? <a routerLink="/account/register">Create Account</a></span>
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <!-- End Card -->
+
+          <div class="cred-footer text-center">
+            <div class="mt-3 d-flex">
+              <div class="mx-1">
+                <span>&copy; {{ getDate }} KeyDetect.</span>
+              </div>
+              <div class="mx-1">
+                <a href="">About</a>
+              </div>
+              <div class="mx-1">
+                <a href="">Blog</a>
+              </div>
+              <div class="mx-1">
+                <a href="">Help</a>
+              </div>
+              <div class="mx-1">
+                <a href="">Terms & Conditions</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
